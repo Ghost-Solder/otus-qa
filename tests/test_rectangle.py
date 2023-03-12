@@ -1,10 +1,30 @@
-# Часть.
-# Написать тесты с использованием pytest на эти классы.
-# Глубину покрытия и объем определить самостоятельно, но минимум проверить реализацию всех указанных требований для каждого класса.
-# Все тесты должны располагаться в папке tests/ в корне репозитория.
+import pytest
 
-# def add_area(self, figure) -> float:
-#     if isinstance(figure, Figure):
-#         return self.area + figure.area
-#     else:
-#         raise ValueError(f'The received object {type(figure)} is not a figure!')
+from src.Rectangle import Rectangle
+from src.Square import Square
+
+
+class TestRectangle:
+    """Tests for class Rectangle."""
+
+    length = 1.5
+    width = 2.5
+    rect = Rectangle(length, width)
+
+    def test_base_attrs(self):
+        assert self.rect.name == 'Rectangle'
+        assert self.rect.length == self.length
+        assert self.rect.width == self.width
+
+    def test_area(self):
+        assert self.rect.area == (self.length * self.width)
+
+    def test_perimeter(self):
+        assert self.rect.perimeter == (2 * self.length + 2 * self.width)
+
+    def test_add_area(self):
+        side = 1.5
+        square = Square(side)
+        assert self.rect.add_area(square) == (self.length * self.width + side * side)
+        with pytest.raises(ValueError):
+            self.rect.add_area(side)
