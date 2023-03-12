@@ -4,7 +4,7 @@ from src.Square import Square
 
 
 class TestSquare:
-    """Tests for class Rectangle."""
+    """Tests for class Square."""
     side = 1.5
     square = Square(side)
 

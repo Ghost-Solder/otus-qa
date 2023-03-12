@@ -7,7 +7,8 @@ from src.Square import Square
 
 
 class TestCircle:
-    """Tests for class Rectangle."""
+    """Tests for class Circle."""
+
     radius = 1.5
     circle = Circle(radius)
 
