@@ -24,8 +24,6 @@ class Triangle(Figure):
 
     @staticmethod
     def _check_sides(side1: float, side2: float, side3: float) -> bool:
-        if side1 + side2 > side3:
-            if side1 + side3 > side2:
-                if side2 + side3 > side1:
-                    return True
+        if side1 + side2 > side3 and side1 + side3 > side2 and side2 + side3 > side1:
+            return True
         raise ValueError('The triangle cannot be created, please try other sides.')
