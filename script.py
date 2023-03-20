@@ -1,6 +1,8 @@
 import json
 from csv import DictReader
+from itertools import cycle
 from os import path
+from typing import Generator
 
 FILES_DIR = path.dirname('C:\\Users\\d.osipov\\Downloads\\')
 
@@ -13,6 +15,12 @@ BOOKS_CSV_PATH = get_path('books.csv')
 USERS_JSON_PATH = get_path('users.json')
 
 
+def get_next_user(users: dict) -> 'Generator':
+    items = cycle(users)
+    while True:
+        yield next(items)
+
+
 def distribute_to_users(books_file_path: str, users_file_path: str):
     with (
         open(books_file_path, 'r', newline='') as books_file,
@@ -21,16 +29,12 @@ def distribute_to_users(books_file_path: str, users_file_path: str):
         books = DictReader(books_file)
         users = json.load(users_file)
 
-        users_iter = iter(users)
+        users_gen = get_next_user(users)
 
         result = {}
 
         for book in books:
-            try:
-                user = next(users_iter)
-            except StopIteration:
-                users_iter = iter(users)
-                user = next(users_iter)
+            user = next(users_gen)
 
             book_data = {
                 'title': book['Title'],
