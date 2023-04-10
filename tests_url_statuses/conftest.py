@@ -16,10 +16,10 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture
-def base_url(request):
+def base_url(request) -> str:
     return request.config.getoption('--url')
 
 
 @pytest.fixture
-def status_code(request):
+def status_code(request) -> int:
     return request.config.getoption('--status_code')
