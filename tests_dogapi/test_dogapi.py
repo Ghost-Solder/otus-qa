@@ -281,7 +281,7 @@ class TestsDogApi:
     @pytest.mark.parametrize('breed', [
         'affenpinscher',
     ])
-    def test_subbreed_list(self, breed):
+    def test_subbreed_list(self, breed: str):
         response = requests.get(f'{self.dogapi_url}/breed/{breed}/list')
         validate_response(response, self.schema)
 
