@@ -27,6 +27,7 @@ class TestsDogApi:
             'message': {'type': ['object', 'string', 'array']},
             'status': {'type': 'string'},
         },
+        'required': ['message', 'status'],
     }
 
     def test_breeds_list(self):
