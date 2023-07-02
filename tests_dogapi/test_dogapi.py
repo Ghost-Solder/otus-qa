@@ -296,7 +296,7 @@ class TestsDogApi:
     @pytest.mark.parametrize('breed, subbreed', [
         ('hound', 'afghan'),
     ])
-    def test_all_images_by_subbreed(self, breed: str, subbreed: str, number: int):
+    def test_multiple_images_by_subbreed(self, breed: str, subbreed: str, number: int):
         url = f'{self.dogapi_url}/breed/{breed}/{subbreed}/images/random'
         response = requests.get(f'{url}/{number}')
         validate_response(response, self.schema, number)
