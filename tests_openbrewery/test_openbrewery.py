@@ -59,19 +59,19 @@ class TestsOpenBreweryApi:
         validate_response(response, self.brewery_schema)
 
     @pytest.mark.parametrize('city', ['San Francisco', 'Los Angeles'])
-    def test_get_breweries_by_city(self, city):
+    def test_get_breweries_by_city(self, city: str):
         payload = {'by_state': city}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
 
     @pytest.mark.parametrize('brewery_type', ['micro', 'nano'])
-    def test_get_breweries_by_type(self, brewery_type):
+    def test_get_breweries_by_type(self, brewery_type: str):
         payload = {'by_state': brewery_type}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
 
     @pytest.mark.parametrize('postal_code', ['94102', '10001'])
-    def test_get_breweries_by_postal_code(self, postal_code):
+    def test_get_breweries_by_postal_code(self, postal_code: str):
         payload = {'by_state': postal_code}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
