@@ -9,11 +9,9 @@ if TYPE_CHECKING:
     from requests import Response
 
 
-def validate_response(response: 'Response', schema: dict, number: Optional[int] = None) -> None:
+def validate_response(response: 'Response', schema: dict) -> None:
     assert response.status_code == 200
-    validate(instance=response.json(), schema=schema)
-    if number is not None:
-        assert len(response.json()['message']) == number
+    assert validate(instance=response.json(), schema=schema) is None
 
 
 class TestsOpenBreweryApi:

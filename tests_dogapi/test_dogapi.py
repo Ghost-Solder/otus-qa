@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 def validate_response(response: 'Response', schema: dict, number: Optional[int] = None) -> None:
     assert response.status_code == 200
-    validate(instance=response.json(), schema=schema)
+    assert validate(instance=response.json(), schema=schema) is None
     if number is not None:
         assert len(response.json()['message']) == number
 
