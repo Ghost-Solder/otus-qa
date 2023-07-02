@@ -1,6 +1,6 @@
 import http
 import json
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 import pytest
 import requests
@@ -43,7 +43,7 @@ class TestsJsonPlaceholderApi:
         validate_response(response, self.SUCCESS, self.response_schema)
 
     @pytest.mark.parametrize('todo_id', [1, 2, 3])
-    def test_get_todo_by_id(self, todo_id):
+    def test_get_todo_by_id(self, todo_id: int):
         response = requests.get(f'{self.jsonplaceholder_api_url}/{todo_id}')
         validate_response(response, self.SUCCESS, self.response_schema)
 
@@ -57,7 +57,7 @@ class TestsJsonPlaceholderApi:
         validate_response(response, self.CREATED, self.response_schema)
 
     @pytest.mark.parametrize('todo_id', [1, 2, 3])
-    def test_update_todo(self, todo_id):
+    def test_update_todo(self, todo_id: int):
         todo_data = {
             'id': todo_id,
             'userId': 1,
@@ -68,6 +68,6 @@ class TestsJsonPlaceholderApi:
         validate_response(response, self.SUCCESS, self.response_schema)
 
     @pytest.mark.parametrize('todo_id', [1, 2, 3])
-    def test_delete_todo(self, todo_id):
+    def test_delete_todo(self, todo_id: int):
         response = requests.delete(f'{self.jsonplaceholder_api_url}/{todo_id}')
         assert response.status_code == 200
