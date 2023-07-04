@@ -16,6 +16,16 @@ def validate_response(response: 'Response', schema: dict, number: Optional[int] 
         assert len(response.json()['message']) == number
 
 
+def validate_images(response: 'Response', breed: str, subbreed: Optional[str] = '') -> None:
+    images_list = response.json()['message']
+    if subbreed is not '':
+        breed += '-'
+    assert len(images_list)
+    for image in images_list:
+        assert f'{breed}{subbreed}' in image
+        assert image[-4:] == '.jpg'
+
+
 class TestsDogApi:
     """Some positive tests for Dogs Api https://dog.ceo/dog-api/documentation/"""
 
@@ -49,6 +59,7 @@ class TestsDogApi:
     def test_all_images_by_breed(self, breed: str):
         response = requests.get(f'{self.dogapi_url}/breed/{breed}/images')
         validate_response(response, self.schema)
+        validate_images(response, breed)
 
     @pytest.mark.parametrize('number', [1, 20, 50])
     @pytest.mark.parametrize('breed', [
@@ -58,6 +69,7 @@ class TestsDogApi:
         url = f'{self.dogapi_url}/breed/{breed}/images/random'
         response = requests.get(f'{url}/{number}')
         validate_response(response, self.schema, number)
+        validate_images(response, breed)
 
     @pytest.mark.parametrize('breed', [
         'affenpinscher',
@@ -72,6 +84,7 @@ class TestsDogApi:
     def test_all_images_by_subbreed(self, breed: str, subbreed: str):
         response = requests.get(f'{self.dogapi_url}/breed/{breed}/{subbreed}/images')
         validate_response(response, self.schema)
+        validate_images(response, breed, subbreed)
 
     @pytest.mark.parametrize('number', [1, 20, 50])
     @pytest.mark.parametrize('breed, subbreed', [
@@ -81,3 +94,4 @@ class TestsDogApi:
         url = f'{self.dogapi_url}/breed/{breed}/{subbreed}/images/random'
         response = requests.get(f'{url}/{number}')
         validate_response(response, self.schema, number)
+        validate_images(response, breed, subbreed)
