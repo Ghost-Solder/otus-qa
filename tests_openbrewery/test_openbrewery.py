@@ -14,6 +14,12 @@ def validate_response(response: 'Response', schema: dict) -> None:
     assert validate(instance=response.json(), schema=schema) is None
 
 
+def validate_brewer(response: 'Response', payload: dict, brewer_param: str) -> None:
+    breweries_dict = response.json()
+    for brewer in breweries_dict:
+        assert ''.join(payload.values()) in brewer.get(brewer_param)
+
+
 class TestsOpenBreweryApi:
     """Some positive tests for Open Brewery Api https://www.openbrewerydb.org/documentation"""
 
@@ -49,27 +55,32 @@ class TestsOpenBreweryApi:
         payload = {'per_page': number}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
+        assert len(response.json()) == number
 
     @pytest.mark.parametrize('state', ['California', 'New York'])
     def test_get_breweries_by_state(self, state: str):
         payload = {'by_state': state}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
+        validate_brewer(response, payload, 'state')
 
     @pytest.mark.parametrize('city', ['San Francisco', 'Los Angeles'])
     def test_get_breweries_by_city(self, city: str):
-        payload = {'by_state': city}
+        payload = {'by_city': city}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
+        validate_brewer(response, payload, 'city')
 
     @pytest.mark.parametrize('brewery_type', ['micro', 'nano'])
     def test_get_breweries_by_type(self, brewery_type: str):
-        payload = {'by_state': brewery_type}
+        payload = {'by_type': brewery_type}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
+        validate_brewer(response, payload, 'brewery_type')
 
     @pytest.mark.parametrize('postal_code', ['94102', '10001'])
     def test_get_breweries_by_postal_code(self, postal_code: str):
-        payload = {'by_state': postal_code}
+        payload = {'by_postal': postal_code}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
+        validate_brewer(response, payload, 'postal_code')
