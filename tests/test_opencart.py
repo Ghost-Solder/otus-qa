@@ -46,7 +46,12 @@ class TestOpenCart:
 
     def test_login_to_admin_page(self, browser: 'webdriver'):
         browser.get(f'{browser.url}/admin')
-        pass
+        assert check_object(
+            browser, '//div[@class="card-header"]').text == 'Please enter your login details.'
+        assert check_object(browser, '//input[@name="username"]')
+        assert check_object(browser, '//input[@name="password"]')
+        assert check_object(browser, '//button[@type="submit"]')
+        assert check_object(browser, '//div[@class="mb-3"]').text == 'Forgotten Password'
 
     def test_registration_page(self, browser: 'webdriver'):
         browser.get(f'{browser.url}/index.php?route=account/register')
