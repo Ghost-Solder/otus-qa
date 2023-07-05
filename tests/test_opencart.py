@@ -17,6 +17,7 @@ def check_object(browser: 'webdriver', xpath: str) -> Any:
 class TestOpenCart:
 
     def test_main_page(self, browser: 'webdriver'):
+        browser.get(browser.url)
         assert check_object(browser, '//img[@title="Your Store"]')
         assert check_object(browser, '//img[@alt="iPhone 6"]')
         assert check_object(browser, '//input[@name="search"]')
@@ -24,6 +25,7 @@ class TestOpenCart:
         assert check_object(browser, '//a[@title="Checkout"]')
 
     def test_catalog_page(self, browser: 'webdriver'):
+        browser.get(browser.url)
         browser.find_element(By.LINK_TEXT, 'Desktops').click()
         wait = WebDriverWait(browser, 3, poll_frequency=1)
         all_desktops = wait.until(
@@ -37,7 +39,11 @@ class TestOpenCart:
         assert check_object(browser, '//select[@id="input-limit"]')
 
     def test_product_page(self, browser: 'webdriver'):
-        browser.find_element(By.LINK_TEXT, 'MacBook').click()
+        browser.get(browser.url)
+        wait = WebDriverWait(browser, 3, poll_frequency=1)
+        wait.until(
+            ec.visibility_of_element_located((By.LINK_TEXT, 'MacBook'))
+        ).click()
         assert check_object(browser, '//h1').text == 'MacBook'
         assert check_object(browser, '//span[@class="price-new"]')
         assert check_object(browser, '//button[@type="submit"]')
@@ -55,4 +61,8 @@ class TestOpenCart:
 
     def test_registration_page(self, browser: 'webdriver'):
         browser.get(f'{browser.url}/index.php?route=account/register')
-        pass
+        assert check_object(browser, '//h1').text == 'Register Account'
+        assert check_object(browser, '//input[@name="firstname"]')
+        assert check_object(browser, '//input[@name="lastname"]')
+        assert check_object(browser, '//input[@name="email"]')
+        assert check_object(browser, '//button[@type="submit"]')
