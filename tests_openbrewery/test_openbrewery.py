@@ -14,10 +14,11 @@ def validate_response(response: 'Response', schema: dict) -> None:
     assert validate(instance=response.json(), schema=schema) is None
 
 
-def validate_brewer(response: 'Response', payload: dict, brewer_param: str) -> None:
+def validate_brewer(response: 'Response', value_to_check: str, brewer_param: str) -> None:
     breweries_dict = response.json()
     for brewer in breweries_dict:
-        assert ''.join(payload.values()) in brewer.get(brewer_param)
+        assert brewer_param in brewer, f'No value {brewer_param} in {breweries_dict}'
+        assert value_to_check in brewer[brewer_param]
 
 
 class TestsOpenBreweryApi:
@@ -62,25 +63,25 @@ class TestsOpenBreweryApi:
         payload = {'by_state': state}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
-        validate_brewer(response, payload, 'state')
+        validate_brewer(response, state, 'state')
 
     @pytest.mark.parametrize('city', ['San Francisco', 'Los Angeles'])
     def test_get_breweries_by_city(self, city: str):
         payload = {'by_city': city}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
-        validate_brewer(response, payload, 'city')
+        validate_brewer(response, city, 'city')
 
     @pytest.mark.parametrize('brewery_type', ['micro', 'nano'])
     def test_get_breweries_by_type(self, brewery_type: str):
         payload = {'by_type': brewery_type}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
-        validate_brewer(response, payload, 'brewery_type')
+        validate_brewer(response, brewery_type, 'brewery_type')
 
     @pytest.mark.parametrize('postal_code', ['94102', '10001'])
     def test_get_breweries_by_postal_code(self, postal_code: str):
         payload = {'by_postal': postal_code}
         response = requests.get(self.brewery_api_url, params=payload)
         validate_response(response, self.brewery_schema)
-        validate_brewer(response, payload, 'postal_code')
+        validate_brewer(response, postal_code, 'postal_code')
