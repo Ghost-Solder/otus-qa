@@ -37,7 +37,12 @@ class TestOpenCart:
         assert check_object(browser, '//select[@id="input-limit"]')
 
     def test_product_page(self, browser: 'webdriver'):
-        pass
+        browser.find_element(By.LINK_TEXT, 'MacBook').click()
+        assert check_object(browser, '//h1').text == 'MacBook'
+        assert check_object(browser, '//span[@class="price-new"]')
+        assert check_object(browser, '//button[@type="submit"]')
+        assert check_object(browser, '//a[@id="description-tab"]')
+        assert check_object(browser, '//input[@name="quantity"]')
 
     def test_login_to_admin_page(self, browser: 'webdriver'):
         browser.get(f'{browser.url}/admin')
