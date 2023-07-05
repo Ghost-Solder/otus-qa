@@ -1,22 +1,48 @@
+from typing import TYPE_CHECKING, Any
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+
+
+if TYPE_CHECKING:
+    from selenium import webdriver
+
+
+def check_object(browser: 'webdriver', xpath: str) -> Any:
+    wait = WebDriverWait(browser, 10, poll_frequency=1)
+    return wait.until(ec.visibility_of_element_located((By.XPATH, xpath)))
 
 
 class TestOpenCart:
 
-    def test_main_page(self, browser):
-        browser.find_element(By.XPATH, '//img[@title="Your Store"]')
+    def test_main_page(self, browser: 'webdriver'):
+        assert check_object(browser, '//img[@title="Your Store"]')
+        assert check_object(browser, '//img[@alt="iPhone 6"]')
+        assert check_object(browser, '//input[@name="search"]')
+        assert check_object(browser, '//button/i[@class="fas fa-shopping-cart"]')
+        assert check_object(browser, '//a[@title="Checkout"]')
+
+    def test_catalog_page(self, browser: 'webdriver'):
+        browser.find_element(By.LINK_TEXT, 'Desktops').click()
+        wait = WebDriverWait(browser, 3, poll_frequency=1)
+        all_desktops = wait.until(
+            ec.visibility_of_element_located((By.LINK_TEXT, 'Show All Desktops'))
+        )
+        all_desktops.click()
+        assert check_object(browser, '//a[@title="Checkout"]')
+        assert check_object(browser, '//div[@id="content"]/h2').text == 'Desktops'
+        assert check_object(browser, '//a[@id="compare-total"]')
+        assert check_object(browser, '//select[@id="input-sort"]')
+        assert check_object(browser, '//select[@id="input-limit"]')
+
+    def test_product_page(self, browser: 'webdriver'):
         pass
 
-    def test_catalog_page(self, browser):
-        pass
-
-    def test_product_page(self, browser):
-        pass
-
-    def test_login_to_admin_page(self, browser):
+    def test_login_to_admin_page(self, browser: 'webdriver'):
         browser.get(f'{browser.url}/admin')
         pass
 
-    def test_registration_page(self, browser):
+    def test_registration_page(self, browser: 'webdriver'):
         browser.get(f'{browser.url}/index.php?route=account/register')
         pass
