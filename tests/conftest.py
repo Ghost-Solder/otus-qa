@@ -8,7 +8,7 @@ from selenium.webdriver.safari.options import Options as SafariOptions
 
 def pytest_addoption(parser):
     parser.addoption('--browser', action='store', default='chrome',
-                     help='Browser name (firefox, chrome, opera, safari, edge, yandex)')
+                     help='Browser name (firefox, chrome, safari, edge, yandex)')
     parser.addoption('--url', action='store', default='https://demo.opencart.com/',
                      help='Base URL for the tests')
 
