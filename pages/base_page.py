@@ -3,6 +3,7 @@ from typing import Any
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from typing_extensions import Self
 
 
 class BasePage:
@@ -11,7 +12,7 @@ class BasePage:
         self.browser = browser
         self.url = browser.url
 
-    def base_load(self):
+    def base_load(self) -> Self:
         self.browser.get(self.url)
         return self
 
