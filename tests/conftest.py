@@ -65,6 +65,11 @@ def admin_page(browser: 'webdriver') -> 'AdminPage':
 
 
 @pytest.fixture(scope='module')
+def login_to_admin_page(admin_page: 'AdminPage') -> 'AdminPage':
+    return admin_page.base_load().login_to_admin()
+
+
+@pytest.fixture(scope='module')
 def catalog_page(browser: 'webdriver') -> 'CatalogPage':
     return CatalogPage(browser)
 
