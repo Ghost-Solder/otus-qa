@@ -18,8 +18,8 @@ class CatalogPage(BasePage):
         return self
 
     def check_main_objects(self):
-        assert self._check_object('//a[@title="Checkout"]')
-        assert self._check_object('//div[@id="content"]/h2').text == 'Desktops'
-        assert self._check_object('//a[@id="compare-total"]')
-        assert self._check_object('//select[@id="input-sort"]')
-        assert self._check_object('//select[@id="input-limit"]')
+        assert self._find_object('//a[@title="Checkout"]')
+        assert self._find_object('//div[@id="content"]/h2').text == 'Desktops'
+        assert self._find_object('//a[@id="compare-total"]')
+        assert self._find_object('//select[@id="input-sort"]')
+        assert self._find_object('//select[@id="input-limit"]')

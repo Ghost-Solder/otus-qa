@@ -15,6 +15,6 @@ class BasePage:
         self.browser.get(self.url)
         return self
 
-    def _check_object(self, xpath: str) -> Any:
+    def _find_object(self, xpath: str) -> Any:
         wait = WebDriverWait(self.browser, 10, poll_frequency=1)
         return wait.until(ec.visibility_of_element_located((By.XPATH, xpath)))

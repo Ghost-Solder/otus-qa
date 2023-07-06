@@ -16,8 +16,8 @@ class ProductPage(BasePage):
         return self
 
     def check_main_objects(self, product_name):
-        assert self._check_object('//h1').text == product_name
-        assert self._check_object('//span[@class="price-new"]')
-        assert self._check_object('//button[@type="submit"]')
-        assert self._check_object('//a[@id="description-tab"]')
-        assert self._check_object('//input[@name="quantity"]')
+        assert self._find_object('//h1').text == product_name
+        assert self._find_object('//span[@class="price-new"]')
+        assert self._find_object('//button[@type="submit"]')
+        assert self._find_object('//a[@id="description-tab"]')
+        assert self._find_object('//input[@name="quantity"]')

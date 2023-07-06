@@ -6,6 +6,10 @@ class TestOpenCart:
     def test_main_page(self, main_page):
         main_page.base_load().check_main_objects()
 
+    @pytest.mark.parametrize('currency', ['EUR', 'GBP', 'USD'])
+    def test_switch_currency(self, main_page, currency):
+        main_page.base_load().switch_currency(currency)
+
     def test_catalog_page(self, catalog_page):
         catalog_page.load().check_main_objects()
 
