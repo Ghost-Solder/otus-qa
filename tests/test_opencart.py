@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 import pytest
-from faker import Faker
 
 if TYPE_CHECKING:
     from pages.admin_page import AdminPage
@@ -12,7 +11,6 @@ if TYPE_CHECKING:
 
 
 class TestOpenCart:
-    fake = Faker()
 
     def test_main_page(self, main_page: 'MainPage'):
         main_page.base_load().check_main_objects()
@@ -40,12 +38,6 @@ class TestOpenCart:
         registration_page.base_load().check_main_objects()
 
     def test_registration_new_user(self, registration_page: 'RegistrationPage'):
-        full_name = self.fake.name()
-        firstname = full_name.split()[0]
-        lastname = full_name.split()[1]
-        email = self.fake.email()
-        password = self.fake.password(length=4)
-        user = {'firstname': firstname, 'lastname': lastname, 'email': email, 'password': password}
         registration_page.base_load()
-        registration_page.fill_registration_form(**user)
+        registration_page.fill_registration_form_with_fake_data()
         registration_page.registrate_user()

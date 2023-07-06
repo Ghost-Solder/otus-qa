@@ -1,3 +1,4 @@
+from faker import Faker
 from selenium import webdriver
 from typing_extensions import Self
 
@@ -37,6 +38,17 @@ class RegistrationPage(BasePage):
         self._find_object(self.INPUT_EMAIL).send_keys(email)
         self._find_object(self.INPUT_PASSWORD).send_keys(password)
         self._find_object(self.CHECKBOX_POLICY).click()
+        return self
+
+    def fill_registration_form_with_fake_data(self) -> Self:
+        fake = Faker()
+        full_name = fake.name()
+        firstname = full_name.split()[0]
+        lastname = full_name.split()[1]
+        email = fake.email()
+        password = fake.password(length=4)
+        user = {'firstname': firstname, 'lastname': lastname, 'email': email, 'password': password}
+        self.fill_registration_form(**user)
         return self
 
     def registrate_user(self) -> Self:
