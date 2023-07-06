@@ -1,5 +1,6 @@
 # Добавление нового товара в разделе администратора.
 # Удаление товара из списка в разделе администартора.
+from selenium import webdriver
 from typing_extensions import Self
 
 from pages.base_page import BasePage
@@ -7,7 +8,7 @@ from pages.base_page import BasePage
 
 class AdminPage(BasePage):
 
-    def __init__(self, browser):
+    def __init__(self, browser: 'webdriver'):
         super().__init__(browser)
         self.url = browser.url + '/admin'
 
