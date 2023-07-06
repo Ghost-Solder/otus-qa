@@ -5,6 +5,12 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.safari.options import Options as SafariOptions
 
+from pages.admin_page import AdminPage
+from pages.catalog_page import CatalogPage
+from pages.main_page import MainPage
+from pages.product_page import ProductPage
+from pages.registration_page import RegistrationPage
+
 
 def pytest_addoption(parser):
     parser.addoption('--browser', action='store', default='chrome',
@@ -46,3 +52,28 @@ def browser(request):
     driver.url = url
 
     return driver
+
+
+@pytest.fixture(scope='module')
+def main_page(browser: 'webdriver') -> 'MainPage':
+    return MainPage(browser)
+
+
+@pytest.fixture(scope='module')
+def admin_page(browser: 'webdriver') -> 'AdminPage':
+    return AdminPage(browser)
+
+
+@pytest.fixture(scope='module')
+def catalog_page(browser: 'webdriver') -> 'CatalogPage':
+    return CatalogPage(browser)
+
+
+@pytest.fixture(scope='module')
+def product_page(browser: 'webdriver') -> 'ProductPage':
+    return ProductPage(browser)
+
+
+@pytest.fixture(scope='module')
+def registration_page(browser: 'webdriver') -> 'RegistrationPage':
+    return RegistrationPage(browser)
