@@ -7,12 +7,12 @@ from heapq import nlargest
 
 
 def logs_parser():
-    parser = argparse.ArgumentParser(description="Log Analyzer")
+    parser = argparse.ArgumentParser(description='Log Analyzer')
     parser.add_argument(
         'directory',
         metavar='directory',
         type=str,
-        help="Directory path containing log files",
+        help='Directory path containing log files',
     )
 
     args = parser.parse_args()
@@ -112,5 +112,4 @@ def analyze_logs(directory_or_file: str):
 
 
 if __name__ == '__main__':
-    analyze_logs('C:\\Users\\d.osipov\\PycharmProjects\\otus-qa\\access_full.log')
-    # logs_parser()
+    logs_parser()
