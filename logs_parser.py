@@ -1,21 +1,22 @@
+import argparse
 import os
 import re
 import json
 
-# def analyze_logs_for_dir():
-#
-#     parser = argparse.ArgumentParser(description="Access Log Analyzer")
-#     parser.add_argument(
-#         '-f',
-#         action='store',
-#         metavar='directory',
-#         type=str,
-#         help="Directory path containing log files",
-#     )
-#
-#     args = parser.parse_args()
-#
-#     analyze_logs(args.directory)
+
+def logs_parser():
+
+    parser = argparse.ArgumentParser(description="Log Analyzer")
+    parser.add_argument(
+        'directory',
+        metavar='directory',
+        type=str,
+        help="Directory path containing log files",
+    )
+
+    args = parser.parse_args()
+
+    analyze_logs(args.directory)
 
 
 def analyze_log(log_file):
@@ -124,4 +125,5 @@ def analyze_logs(directory_or_file: str):
 
 
 if __name__ == '__main__':
-    analyze_logs('C:\\Users\\d.osipov\\PycharmProjects\\otus-qa')
+    # analyze_logs('C:\\Users\\d.osipov\\PycharmProjects\\otus-qa\\access.log')
+    logs_parser()
