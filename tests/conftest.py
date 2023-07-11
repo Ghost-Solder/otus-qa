@@ -21,9 +21,13 @@ def browser(request):
     match browser:
         case 'firefox':
             options = FirefoxOptions()
+            options.add_argument("--headless")
+            options.add_argument('--no-sandbox')
             driver = webdriver.Firefox(options=options)
         case 'chrome':
             options = ChromeOptions()
+            options.add_argument("--headless")
+            options.add_argument('--no-sandbox')
             driver = webdriver.Chrome(options=options)
         case 'safari':
             options = SafariOptions()
@@ -33,6 +37,8 @@ def browser(request):
             driver = webdriver.Edge(options=options)
         case 'yandex':
             options = ChromeOptions()
+            options.add_argument("--headless")
+            options.add_argument('--no-sandbox')
             options.binary_location = '/path/to/yandex/browser'
             driver = webdriver.Chrome(options=options)
         case _:
