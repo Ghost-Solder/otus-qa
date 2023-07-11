@@ -1,9 +1,10 @@
 import socket
 import urllib.parse
 from http import HTTPStatus
+from typing import Any
 
 
-def parse_request(request):
+def parse_request(request: str) -> [str, str, dict, str]:
     req, *req_headers = request.split('\r\n')
     method, path, *_ = req.split()
     parsed_path = urllib.parse.urlparse(path)
@@ -11,7 +12,7 @@ def parse_request(request):
     return method, parsed_path.path, urllib.parse.parse_qs(parsed_path.query), headers
 
 
-def build_response(method, headers, status, req_headers):
+def build_response(method: str, headers: dict, status: 'HTTPStatus', req_headers: str) -> str:
     response = f'Request Method: {method}<br>\n'
     response += f'Request Source: {headers["source"]}<br>\n'
     response += f'Response Status: {status.value} {status.phrase}<br>\n'
@@ -30,7 +31,7 @@ def build_response(method, headers, status, req_headers):
     return result_response
 
 
-def handle_client(client_socket, client_address):
+def handle_client(client_socket: 'socket', client_address: Any) -> None:
     while True:
         recv_bytes = client_socket.recv(2048)
         request = recv_bytes.decode('utf-8')
