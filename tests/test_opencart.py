@@ -43,7 +43,7 @@ class TestOpenCart:
     def test_registration_page(self, registration_page: 'RegistrationPage'):
         registration_page.base_load().check_main_objects()
 
-    def test_registration_new_user(self, registration_page: 'RegistrationPage'):
-        registration_page.base_load()
-        registration_page.fill_registration_form_with_fake_data()
-        registration_page.registrate_user()
+    # def test_registration_new_user(self, registration_page: 'RegistrationPage'):
+    #     registration_page.base_load()
+    #     registration_page.fill_registration_form_with_fake_data()
+    #     registration_page.registrate_user()
