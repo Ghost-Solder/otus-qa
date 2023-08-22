@@ -13,7 +13,7 @@ from pages.registration_page import RegistrationPage
 
 
 def pytest_addoption(parser):
-    parser.addoption('--browser', action='store', default='chrome',
+    parser.addoption('--browser', action='store', default='edge',
                      help='Browser name (firefox, chrome, safari, edge, yandex)')
     parser.addoption('--url', action='store', default='https://demo.opencart.com/',
                      help='Base URL for the tests')
@@ -27,9 +27,13 @@ def browser(request):
     match browser:
         case 'firefox':
             options = FirefoxOptions()
+            options.add_argument("--headless")
+            options.add_argument('--no-sandbox')
             driver = webdriver.Firefox(options=options)
         case 'chrome':
             options = ChromeOptions()
+            options.add_argument("--headless")
+            options.add_argument('--no-sandbox')
             driver = webdriver.Chrome(options=options)
         case 'safari':
             options = SafariOptions()
@@ -39,6 +43,8 @@ def browser(request):
             driver = webdriver.Edge(options=options)
         case 'yandex':
             options = ChromeOptions()
+            options.add_argument("--headless")
+            options.add_argument('--no-sandbox')
             options.binary_location = '/path/to/yandex/browser'
             driver = webdriver.Chrome(options=options)
         case _:

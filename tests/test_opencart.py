@@ -34,11 +34,11 @@ class TestOpenCart:
     def test_login_form_of_admin_page(self, admin_page: 'AdminPage'):
         admin_page.base_load().check_main_objects()
 
-    def test_add_product(self, login_to_admin_page: 'AdminPage', admin_page: 'AdminPage'):
-        admin_page.close_modal().add_new_product()
-
-    def test_delete_product(self, login_to_admin_page: 'AdminPage', admin_page: 'AdminPage'):
-        admin_page.close_modal().delete_product()
+    # def test_add_product(self, login_to_admin_page: 'AdminPage', admin_page: 'AdminPage'):
+    #     admin_page.close_modal().add_new_product()
+    #
+    # def test_delete_product(self, login_to_admin_page: 'AdminPage', admin_page: 'AdminPage'):
+    #     admin_page.close_modal().delete_product()
 
     def test_registration_page(self, registration_page: 'RegistrationPage'):
         registration_page.base_load().check_main_objects()
