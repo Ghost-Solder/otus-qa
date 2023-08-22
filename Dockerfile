@@ -1,6 +1,6 @@
 FROM python:3.10-alpine
 
-WORKDIR .
+WORKDIR /app
 
 COPY requirements.txt .
 
@@ -10,6 +10,7 @@ RUN pip install -r requirements.txt
 
 ENV PATH="/usr/lib/chromium-browser:${PATH}"
 ENV CHROME_BIN="/usr/lib/chromium/chrome"
+ENV PYTHONPATH=/app
 
 COPY . .
 
