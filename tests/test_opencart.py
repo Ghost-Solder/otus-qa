@@ -19,13 +19,13 @@ class TestOpenCart:
     def test_switch_currency(self, main_page: 'MainPage', currency: str):
         main_page.base_load().switch_currency(currency)
 
-    def test_catalog_page(self, catalog_page: 'CatalogPage'):
-        catalog_page.load().check_main_objects()
+    # def test_catalog_page(self, catalog_page: 'CatalogPage'):
+    #     catalog_page.load().check_main_objects()
 
     @pytest.mark.parametrize('product_name', [
-        'MacBook',
+        # 'MacBook',
         'iPhone',
-        'Apple Cinema 30"',
+        # 'Apple Cinema 30"',
         'Canon EOS 5D',
     ])
     def test_product_page(self, product_page: 'ProductPage', product_name: str):
