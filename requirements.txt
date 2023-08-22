@@ -1,0 +1,5 @@
+pytest==7.4.0
+selenium==4.10.0
+faker==18.11.2
+typing_extensions==4.7.1
+allure-pytest==2.13.2
