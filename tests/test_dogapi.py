@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 
+import allure
 import pytest
 import requests
 
@@ -26,6 +27,7 @@ def validate_images(response: 'Response', breed: str, subbreed: Optional[str] = 
         assert image[-4:] == '.jpg'
 
 
+@allure.suite('Api tests for DogApi')
 class TestsDogApi:
     """Some positive tests for Dogs Api https://dog.ceo/dog-api/documentation/"""
 
