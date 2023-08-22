@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+import allure
 import pytest
 
 if TYPE_CHECKING:
@@ -23,9 +24,9 @@ class TestOpenCart:
     #     catalog_page.load().check_main_objects()
 
     @pytest.mark.parametrize('product_name', [
-        # 'MacBook',
+        'MacBook',
         'iPhone',
-        # 'Apple Cinema 30"',
+        'Apple Cinema 30"',
         'Canon EOS 5D',
     ])
     def test_product_page(self, product_page: 'ProductPage', product_name: str):

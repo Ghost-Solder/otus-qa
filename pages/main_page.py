@@ -1,3 +1,4 @@
+import allure
 from typing_extensions import Self
 
 from pages.base_page import BasePage
@@ -5,6 +6,7 @@ from pages.base_page import BasePage
 
 class MainPage(BasePage):
 
+    @allure.step('Check main objects on the main page')
     def check_main_objects(self) -> Self:
         assert self._find_object('//img[@title="Your Store"]')
         assert self._find_object('//img[@alt="iPhone 6"]')
@@ -13,6 +15,7 @@ class MainPage(BasePage):
         assert self._find_object('//a[@title="Checkout"]')
         return self
 
+    @allure.step('Switch currency to {currency}')
     def switch_currency(self, currency: str) -> Self:
         self._find_object('//form[@id="form-currency"]').click()
         self._find_object(f'//a[@href="{currency}"]').click()

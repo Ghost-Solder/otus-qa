@@ -1,3 +1,4 @@
+import allure
 from typing_extensions import Self
 
 from selenium.webdriver.common.by import By
@@ -9,6 +10,7 @@ from pages.base_page import BasePage
 
 class CatalogPage(BasePage):
 
+    @allure.step('Load catalog page')
     def load(self) -> Self:
         self.base_load()
         self.browser.find_element(By.LINK_TEXT, 'Desktops').click()
@@ -19,6 +21,7 @@ class CatalogPage(BasePage):
         all_desktops.click()
         return self
 
+    @allure.step('Check main objects on the catalog page')
     def check_main_objects(self) -> Self:
         assert self._find_object('//a[@title="Checkout"]')
         assert self._find_object('//div[@id="content"]/h2').text == 'Desktops'

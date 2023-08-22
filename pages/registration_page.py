@@ -1,3 +1,4 @@
+import allure
 from faker import Faker
 from selenium import webdriver
 from typing_extensions import Self
@@ -17,6 +18,7 @@ class RegistrationPage(BasePage):
         super().__init__(browser)
         self.url = browser.url + '/index.php?route=account/register'
 
+    @allure.step('Check main objects on the registration page')
     def check_main_objects(self) -> Self:
         assert self._find_object('//h1').text == 'Register Account'
         assert self._find_object(self.INPUT_FIRST_NAME)
@@ -26,6 +28,7 @@ class RegistrationPage(BasePage):
         assert self._find_object(self.BTN_SUBMIT)
         return self
 
+    @allure.step('Fill registration form - {firstname}, {lastname}, {email}, {password}')
     def fill_registration_form(
         self,
         firstname: str,
@@ -40,6 +43,7 @@ class RegistrationPage(BasePage):
         self._find_object(self.CHECKBOX_POLICY).click()
         return self
 
+    @allure.step('Fill registration form with fake data')
     def fill_registration_form_with_fake_data(self) -> Self:
         fake = Faker()
         full_name = fake.name()
@@ -48,9 +52,11 @@ class RegistrationPage(BasePage):
         email = fake.email()
         password = fake.password(length=4)
         user = {'firstname': firstname, 'lastname': lastname, 'email': email, 'password': password}
+        allure.attach(user)
         self.fill_registration_form(**user)
         return self
 
+    @allure.step('Registrate user')
     def registrate_user(self) -> Self:
         self._find_object(self.BTN_SUBMIT).click()
         assert self._find_object('//h1').text == 'Your Account Has Been Created!'
